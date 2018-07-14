@@ -1,0 +1,5 @@
+function getu = func_getu(train_image,train_label,weight,xSize)
+	getu = zeros(xSize,1);
+	for i=1:xSize
+		getu(i) = *sign(train_image(i)-i/50);
+	end
