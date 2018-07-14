@@ -18,7 +18,7 @@ xSize = 784;
 TrainLength = size(train_images,1);
 TestLength = size(test_images,1);
 iter_max = 100;
-iter = 1;
+iter = 0;
  
 %//At each iteration, we find an input index j and decision stump t which has
 % the best performance in predicting the correct class labels at the current time 
@@ -32,7 +32,9 @@ arr_error_avg = ones(iter_max,1);
 
 while(iter < iter_max)
     cum_err = 0;
-    for c = 1:C
+    iter = iter + 1
+    
+    for c = 1:C    
         err_weights = get_err_weights(train_images,train_labels,arr_J,arr_T,arr_step_size,iter,c);
         [alpha,j,t]= getalphas(c,train_images,train_labels,err_weights);   
         misclassified_indices = find(sign_dw(alpha) == -1);     
@@ -43,11 +45,10 @@ while(iter < iter_max)
         arr_T(c,iter) = t;
         arr_step_size(c,iter) = step_size;
         cum_err = cum_err + err;
-    end   
-    iter
+    end
+    
 	cum_err / C
     arr_error_avg(iter) = cum_err / C;
-    iter = iter + 1;
     
 end
 
