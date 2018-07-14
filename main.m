@@ -13,12 +13,11 @@ Test_labelFile = 'testset\t10k-labels.idx1-ubyte';
 %[test_images test_labels] = readMNIST(Test_imgFile, Test_labelFile, 10000, 0);
 load('ReadData.mat');
 
+%problem parameters
 C = 10;
-xSize = 784;
-TrainLength = size(train_images,1);
-TestLength = size(test_images,1);
+
+%hyper parameters
 iter_max = 100;
-iter = 0;
  
 %//At each iteration, we find an input index j and decision stump t which has
 % the best performance in predicting the correct class labels at the current time 
@@ -30,6 +29,7 @@ arr_T = ones(C,iter_max); %//Array of decision stump thresholds per class C at i
 arr_step_size = ones(C,iter_max); %//Array of step sizes per class C at iteration i
 arr_error_avg = ones(iter_max,1);
 
+iter = 0;
 while(iter < iter_max)
     cum_err = 0;
     iter = iter + 1
